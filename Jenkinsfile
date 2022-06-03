@@ -16,6 +16,7 @@ pipeline {
       }
     }
     stage('create image') {
+      agent any
       steps {
         echo 'Building..'
         
@@ -24,12 +25,19 @@ pipeline {
       }
     }
     stage('push docker image to dockerhub') {
-      steps {
+     /* steps {
+        
         echo 'pushing docker image to dockerhub..'
         sh 'docker login -u "swapnar.1si15cs120@gmail.com" -p "Swapna@123"'
         sh 'docker tag hello-world swapna1210/hello-world'
         sh 'docker push swapna1210/hello-world'
-      }
+      }*/
+      agent any
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'Swapna@123', usernameVariable: 'swapnar.1si15cs120@gmail.com')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push swapna1210/hello-world'
+        }
     }
   }
     
