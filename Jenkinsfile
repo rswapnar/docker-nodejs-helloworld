@@ -20,7 +20,7 @@ pipeline {
       steps {
         echo 'Building..'
         
-        sh 'docker build -t hello-world'
+        sh 'docker build -t hello-world .'
         sh 'docker run -p 3000:3000 -d --name server hello-world'
       }
     }
