@@ -12,7 +12,7 @@ pipeline {
         echo 'Building..'
         
         sh 'npm install'
-        sh 'node server.js'
+        //sh 'node server.js'
       }
     }
     stage('create image') {
